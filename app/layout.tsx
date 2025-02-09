@@ -680,7 +680,11 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={`${suisse.variable} antialiased`}>{children}</body>
+      <body
+        className={`${cinderblock.variable} ${suisse.variable} antialiased`}
+      >
+        {children}
+      </body>
     </html>
   );
 }
