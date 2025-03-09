@@ -53,6 +53,8 @@
   font-size: 1.5vw;
   opacity: 0;
   transition: opacity 0.3s ease;
+  width: var(--title-width);
+  max-width: var(--title-width);
 }
 
 .footer {

@@ -1,67 +1,51 @@
 "use client";
 
 import styles from "./page.module.scss";
-import React, { useState, useEffect, useRef } from "react";
-import { Work } from "../components/Index";
+import React, { useState, useEffect } from "react";
+import { Work, WidthProvider, useWidth } from "../components/Index";
 
-export default function Home() {
-  const titleRef = useRef<HTMLHeadingElement>(null);
-  const descriptionRef = useRef<HTMLParagraphElement>(null);
+// Inner component that uses the width context
+const HomeContent = () => {
+  const { titleRef } = useWidth();
   const [currentTime, setCurrentTime] = useState({
     india: "",
     sanFrancisco: "",
   });
 
-  const adjustDescriptionWidth = () => {
-    if (titleRef.current && descriptionRef.current) {
+  // Function to initialize opacity for elements
+  useEffect(() => {
+    const fadeInElements = () => {
+      // Set a timeout to ensure everything has rendered
       setTimeout(() => {
-        const titleWidth = titleRef.current?.offsetWidth || 0;
-        descriptionRef.current!.style.width = `${titleWidth}px`;
-        descriptionRef.current!.style.maxWidth = `${titleWidth}px`;
-
         if (titleRef.current) titleRef.current.style.opacity = "1";
-        if (descriptionRef.current) descriptionRef.current.style.opacity = "1";
+
+        const descriptionEl = document.querySelector(`.${styles.description}`);
+        if (descriptionEl) (descriptionEl as HTMLElement).style.opacity = "1";
 
         document.querySelectorAll(`.${styles.footer} p`).forEach((el) => {
           (el as HTMLElement).style.opacity = "1";
         });
-      }, 300);
-    }
-  };
+      }, 500);
+    };
 
-  useEffect(() => {
-    let initialLoadComplete = false;
-
+    // Initially hide elements
     if (titleRef.current) titleRef.current.style.opacity = "0";
-    if (descriptionRef.current) descriptionRef.current.style.opacity = "0";
+
+    const descriptionEl = document.querySelector(`.${styles.description}`);
+    if (descriptionEl) (descriptionEl as HTMLElement).style.opacity = "0";
+
     document.querySelectorAll(`.${styles.footer} p`).forEach((el) => {
       (el as HTMLElement).style.opacity = "0";
     });
 
-    adjustDescriptionWidth();
-    setTimeout(() => {
-      initialLoadComplete = true;
-    }, 500);
+    // Wait for fonts to load before fading in
+    document.fonts.ready.then(fadeInElements);
 
-    const handleResize = () => {
-      if (titleRef.current && descriptionRef.current) {
-        const titleWidth = titleRef.current.offsetWidth;
-        descriptionRef.current.style.width = `${titleWidth}px`;
-        descriptionRef.current.style.maxWidth = `${titleWidth}px`;
-      }
-    };
-
-    window.addEventListener("resize", handleResize);
-    window.addEventListener("orientationchange", handleResize);
-    document.fonts.ready.then(() => {
-      if (!initialLoadComplete) adjustDescriptionWidth();
-    });
-
+    // Clean up
     return () => {
-      window.removeEventListener("resize", handleResize);
-      window.removeEventListener("orientationchange", handleResize);
+      // No cleanup needed for opacity changes
     };
-  }, []);
+  }, [titleRef]);
 
   useEffect(() => {
     const formatTimeWithAmPm = (date: Date): string => {
@@ -102,7 +86,7 @@ export default function Home() {
           <h1 ref={titleRef} className={styles.title}>
             FUTURE UNIT
           </h1>
-          <p ref={descriptionRef} className={styles.description}>
+          <p className={styles.description}>
             Future Unit is a creative studio combining industrial design,
             interaction design, and think tank research into one practice. We
             help early-stage startups turn emerging technologies into
@@ -117,5 +101,14 @@ export default function Home() {
       </main>
       <Work />
     </>
+  );
+};
+
+// Wrapper component that provides the WidthProvider
+export default function Home() {
+  return (
+    <WidthProvider>
+      <HomeContent />
+    </WidthProvider>
   );
 }

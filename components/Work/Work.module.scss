@@ -2,14 +2,22 @@
   padding: 2rem 0;
   color: var(--color-text-light);
   width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.workContainer {
+  width: var(--title-width);
+  max-width: var(--title-width);
 }
 
 .heading {
-  font-family: var(--font-cinderblock), sans-serif;
-  font-weight: 400;
-  font-size: 3rem;
-  margin-bottom: 3rem;
-  text-transform: uppercase;
+  font-family: Inter;
+  font-size: 2.125rem;
+  font-style: normal;
+  font-weight: 600;
+  line-height: normal;
 }
 
 .workGrid {
@@ -23,29 +31,34 @@
   grid-template-columns: 1fr 1fr 1fr;
   padding: 1.5rem 0;
   position: relative;
+
+  color: #f48871;
+
+  font-family: Inter;
+  font-size: 1.5rem;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
 }
 
-.category {
-  font-family: var(--font-suisse), sans-serif;
-  font-weight: 400;
-  font-size: 1.2rem;
-  opacity: 0.8;
-}
+// .category {
+//   font-family: var(--font-suisse), sans-serif;
+//   font-weight: 400;
+//   font-size: 1.2rem;
+//   opacity: 0.8;
+// }
 
 .projectName {
-  font-family: var(--font-suisse), sans-serif;
-  font-weight: 500;
-  font-size: 1.2rem;
   text-transform: uppercase;
 }
 
-.year {
-  font-family: var(--font-suisse), sans-serif;
-  font-weight: 400;
-  font-size: 1.2rem;
-  opacity: 0.8;
-  text-align: right;
-}
+// .year {
+//   font-family: var(--font-suisse), sans-serif;
+//   font-weight: 400;
+//   font-size: 1.2rem;
+//   opacity: 0.8;
+//   text-align: right;
+// }
 
 @media (max-width: 768px) {
   .workRow {

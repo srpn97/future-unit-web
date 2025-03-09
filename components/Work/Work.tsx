@@ -1,3 +1,4 @@
+// components/Work/Work.tsx
 import React from "react";
 import styles from "./Work.module.scss";
 
@@ -26,15 +27,17 @@ const Work: React.FC = () => {
 
   return (
     <section className={styles.workSection}>
-      <h2 className={styles.heading}>WORK</h2>
-      <div className={styles.workGrid}>
-        {workItems.map((item, index) => (
-          <div key={index} className={styles.workRow}>
-            <div className={styles.category}>{item.category}</div>
-            <div className={styles.projectName}>{item.projectName}</div>
-            <div className={styles.year}>{item.year}</div>
-          </div>
-        ))}
+      <div className={styles.workContainer}>
+        <h2 className={styles.heading}>WORK</h2>
+        <div className={styles.workGrid}>
+          {workItems.map((item, index) => (
+            <div key={index} className={styles.workRow}>
+              <div className={styles.category}>{item.category}</div>
+              <div className={styles.projectName}>{item.projectName}</div>
+              <div className={styles.year}>{item.year}</div>
+            </div>
+          ))}
+        </div>
       </div>
     </section>
   );

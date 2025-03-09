@@ -22,6 +22,9 @@
   --container-padding-desktop: 3.125rem;
   --max-width: 160rem;
   --content-max-width: 160rem;
+
+  /* Title width - this will be set dynamically by JavaScript */
+  --title-width: auto;
 }
 
 /* Responsive font size adjustments */
@@ -71,6 +74,12 @@ body {
   margin: 0 auto;
   padding-left: var(--container-padding-mobile);
   padding-right: var(--container-padding-mobile);
+}
+
+/* Standard content width class */
+.content-width {
+  width: var(--title-width);
+  max-width: var(--title-width);
 }
 
 @media (min-width: 768px) {
