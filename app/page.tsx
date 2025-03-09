@@ -2,8 +2,7 @@
 
 import styles from "./page.module.scss";
 import React, { useState, useEffect } from "react";
-import { Work, WidthProvider, useWidth } from "../components/Index";
-
+import { Work, GridLines, WidthProvider, useWidth } from "../components/Index";
 // Inner component that uses the width context
 const HomeContent = () => {
   const { titleRef } = useWidth();
@@ -81,10 +80,11 @@ const HomeContent = () => {
 
   return (
     <>
+      <GridLines />
       <main className={styles.container}>
         <div className={styles.content}>
           <h1 ref={titleRef} className={styles.title}>
-            FUTURE UNIT
+            <span>FUTURE</span> <span>UNIT</span>
           </h1>
           <p className={styles.description}>
             Future Unit is a creative studio combining industrial design,

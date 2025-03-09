@@ -23,8 +23,9 @@
   --max-width: 160rem;
   --content-max-width: 160rem;
 
-  /* Title width - this will be set dynamically by JavaScript */
+  /* Dynamic variables set by JavaScript */
   --title-width: auto;
+  --grid-gap: 33.33%; /* Default value, will be overridden by JS */
 }
 
 /* Responsive font size adjustments */

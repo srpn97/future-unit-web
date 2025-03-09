@@ -23,13 +23,21 @@
 .workGrid {
   display: grid;
   width: 100%;
-  gap: 1.5rem;
+  margin-top: 4.5rem;
+
+  /* Use the grid-gap CSS variable when it's available */
+  @supports (gap: var(--grid-gap)) {
+    gap: 5.8rem; /* Reset the gap property */
+    column-gap: var(
+      --grid-gap,
+      1.5rem
+    ); /* Use grid-gap or fallback to 1.5rem */
+  }
 }
 
 .workRow {
   display: grid;
   grid-template-columns: 1fr 1fr 1fr;
-  padding: 1.5rem 0;
   position: relative;
 
   color: #f48871;
@@ -39,6 +47,14 @@
   font-style: normal;
   font-weight: 400;
   line-height: normal;
+
+  // /* Ensure content aligns with the grid lines */
+  // @supports (grid-template-columns: repeat(3, 1fr)) {
+  //   grid-template-columns: repeat(3, 1fr);
+  //   column-gap: calc(
+  //     var(--grid-gap, 1.5rem) - 1px
+  //   ); /* Account for grid line width */
+  // }
 }
 
 // .category {
@@ -48,16 +64,18 @@
 //   opacity: 0.8;
 // }
 
-.projectName {
-  text-transform: uppercase;
-}
+// .projectName {
+//   font-family: var(--font-suisse), sans-serif;
+//   font-weight: 500;
+//   font-size: 1.2rem;
+//   text-transform: uppercase;
+// }
 
 // .year {
 //   font-family: var(--font-suisse), sans-serif;
 //   font-weight: 400;
 //   font-size: 1.2rem;
 //   opacity: 0.8;
-//   text-align: right;
 // }
 
 @media (max-width: 768px) {

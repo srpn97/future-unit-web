@@ -41,6 +41,7 @@
   display: inline-block;
   vertical-align: top;
   margin-top: -10rem;
+  z-index: 3;
 }
 
 .description {
@@ -55,6 +56,7 @@
   transition: opacity 0.3s ease;
   width: var(--title-width);
   max-width: var(--title-width);
+  z-index: 3;
 }
 
 .footer {
