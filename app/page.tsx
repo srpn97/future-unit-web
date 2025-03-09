@@ -40,7 +40,7 @@ export default function Home() {
     adjustDescriptionWidth();
     setTimeout(() => {
       initialLoadComplete = true;
-    }, 500);
+    }, 300);
 
     const handleResize = () => {
       if (titleRef.current && descriptionRef.current) {
