@@ -2,6 +2,7 @@
 
 import styles from "./page.module.scss";
 import React, { useState, useEffect, useRef } from "react";
+import { Work } from "../components/Index";
 
 export default function Home() {
   const titleRef = useRef<HTMLHeadingElement>(null);
@@ -95,22 +96,26 @@ export default function Home() {
   }, []);
 
   return (
-    <main className={styles.container}>
-      <div className={styles.content}>
-        <h1 ref={titleRef} className={styles.title}>
-          FUTURE UNIT
-        </h1>
-        <p ref={descriptionRef} className={styles.description}>
-          Future Unit is a creative studio combining industrial design,
-          interaction design, and think tank research into one practice. We help
-          early-stage startups turn emerging technologies into culture-shaping
-          experiences. Big ideas become real and relevant today.
-        </p>
-      </div>
-      <footer className={styles.footer}>
-        <p>IND {currentTime.india || "--:--"}</p>
-        <p>SF {currentTime.sanFrancisco || "--:--"}</p>
-      </footer>
-    </main>
+    <>
+      <main className={styles.container}>
+        <div className={styles.content}>
+          <h1 ref={titleRef} className={styles.title}>
+            FUTURE UNIT
+          </h1>
+          <p ref={descriptionRef} className={styles.description}>
+            Future Unit is a creative studio combining industrial design,
+            interaction design, and think tank research into one practice. We
+            help early-stage startups turn emerging technologies into
+            culture-shaping experiences. Big ideas become real and relevant
+            today.
+          </p>
+        </div>
+        <footer className={styles.footer}>
+          <p>IND {currentTime.india || "--:--"}</p>
+          <p>SF {currentTime.sanFrancisco || "--:--"}</p>
+        </footer>
+      </main>
+      <Work />
+    </>
   );
 }

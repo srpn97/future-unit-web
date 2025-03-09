@@ -1,0 +1,89 @@
+.workSection {
+  padding: 2rem 0;
+  color: var(--color-text-light);
+  width: 100%;
+}
+
+.heading {
+  font-family: var(--font-cinderblock), sans-serif;
+  font-weight: 400;
+  font-size: 3rem;
+  margin-bottom: 3rem;
+  text-transform: uppercase;
+}
+
+.workGrid {
+  display: grid;
+  width: 100%;
+  gap: 1.5rem;
+}
+
+.workRow {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  padding: 1.5rem 0;
+  position: relative;
+}
+
+.category {
+  font-family: var(--font-suisse), sans-serif;
+  font-weight: 400;
+  font-size: 1.2rem;
+  opacity: 0.8;
+}
+
+.projectName {
+  font-family: var(--font-suisse), sans-serif;
+  font-weight: 500;
+  font-size: 1.2rem;
+  text-transform: uppercase;
+}
+
+.year {
+  font-family: var(--font-suisse), sans-serif;
+  font-weight: 400;
+  font-size: 1.2rem;
+  opacity: 0.8;
+  text-align: right;
+}
+
+@media (max-width: 768px) {
+  .workRow {
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem;
+  }
+
+  .projectName {
+    grid-column: 1;
+    grid-row: 2;
+  }
+
+  .year {
+    grid-column: 2;
+    grid-row: 1/3;
+    text-align: right;
+    align-self: center;
+  }
+}
+
+@media (max-width: 480px) {
+  .heading {
+    font-size: 2.5rem;
+    margin-bottom: 2rem;
+  }
+
+  .workRow {
+    grid-template-columns: 1fr;
+    gap: 0.5rem;
+  }
+
+  .projectName,
+  .year,
+  .category {
+    grid-column: 1;
+  }
+
+  .year {
+    text-align: left;
+  }
+}

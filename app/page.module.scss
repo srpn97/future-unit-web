@@ -1,20 +1,16 @@
 .container {
-  background: linear-gradient(
-    180deg,
-    var(--color-primary) 0%,
-    var(--color-primary-dark) 100%
-  );
   color: var(--color-text-light);
-  min-height: 100vh;
+  min-height: 100dvh;
   width: 100%;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: space-between;
-  padding: 1.25rem; /* 20px */
+  padding: 1.25rem;
+  height: 100dvh;
 
   @media (min-width: 768px) {
-    padding: 3.125rem; /* 50px */
+    padding: 3.125rem;
   }
 }
 
@@ -26,8 +22,8 @@
   flex-grow: 1;
   display: flex;
   flex-direction: column;
-  justify-content: center;
   align-items: center;
+  justify-content: center;
 }
 
 .title {
@@ -37,22 +33,14 @@
   text-transform: uppercase;
   line-height: 1;
   margin-bottom: 2rem;
-  /* Preferred size */
-  font-size: 31vw;
-  /* Hide initially */
+  font-size: 32vw;
   opacity: 0;
+  word-spacing: 20px;
+  letter-spacing: 5px;
   transition: opacity 0.3s ease;
-
-  // @media (max-width: 768px) {
-  //   font-size: clamp(6rem, 20vw, 32.5rem);
-  //   margin-top: 1rem;
-  //   margin-bottom: 1.5rem;
-  // }
-
-  // @media (max-width: 480px) {
-  //   margin-top: 0.5rem;
-  //   margin-bottom: 1rem;
-  // }
+  display: inline-block;
+  vertical-align: top;
+  margin-top: -10rem;
 }
 
 .description {
@@ -60,18 +48,11 @@
   font-family: "Suisse Int'l", sans-serif;
   font-weight: 400;
   line-height: 1.4;
-  margin: 0;
+  margin-top: 2rem;
   text-align: left;
-  /* Preferred font size */
   font-size: 1.5vw;
-  /* Hide initially */
   opacity: 0;
   transition: opacity 0.3s ease;
-
-  // @media (max-width: 768px) {
-  //   font-size: clamp(1.25rem, 1.5vw + 0.5rem, 2rem);
-  //   line-height: 1.5;
-  // }
 }
 
 .footer {
@@ -81,7 +62,9 @@
   color: var(--color-accent);
   gap: 3rem;
   margin-top: 2rem;
-
+  position: fixed;
+  bottom: 3.3rem;
+  right: 5rem;
   p {
     text-align: center;
     font-family: "Suisse Int'l", sans-serif;

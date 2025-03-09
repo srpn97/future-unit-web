@@ -20,9 +20,8 @@
   --container-padding-mobile: 1.25rem;
   --container-padding-tablet: 2.5rem;
   --container-padding-desktop: 3.125rem;
-  --max-width: 90rem; /* 1440px */
-  --content-max-width: 81.5rem; /* From your original styles */
-  --text-width: min(90vw, 1400px);
+  --max-width: 160rem;
+  --content-max-width: 160rem;
 }
 
 /* Responsive font size adjustments */
@@ -56,6 +55,13 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-rendering: optimizeLegibility;
+
+  background: linear-gradient(
+    180deg,
+    var(--color-primary) 0%,
+    var(--color-primary-dark) 100%
+  );
+  color: var(--color-text-light);
 }
 
 /* Fluid container for consistent spacing */
