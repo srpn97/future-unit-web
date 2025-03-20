@@ -2,7 +2,14 @@
 
 import styles from "./page.module.scss";
 import React, { useState, useEffect } from "react";
-import { Work, GridLines, WidthProvider, useWidth } from "../components/Index";
+import {
+  Work,
+  GridLines,
+  WidthProvider,
+  useWidth,
+  CustomCursor,
+} from "../components/Index";
+
 // Inner component that uses the width context
 const HomeContent = () => {
   const { titleRef } = useWidth();
@@ -80,6 +87,7 @@ const HomeContent = () => {
 
   return (
     <>
+      <CustomCursor />
       <GridLines />
       <main className={styles.container}>
         <div className={styles.content}>

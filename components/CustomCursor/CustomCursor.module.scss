@@ -1,0 +1,75 @@
+.cursor {
+  position: fixed;
+  z-index: 1000;
+  pointer-events: none;
+  transform: translate(-50%, -50%);
+  transition: transform 0.1s ease, opacity 0.2s ease;
+  opacity: 0;
+
+  &.visible {
+    opacity: 1;
+  }
+
+  .circle {
+    width: 25px;
+    height: 25px;
+    border-radius: 2.9375rem;
+    background: rgba(255, 255, 255, 0.22);
+    backdrop-filter: blur(7.849999904632568px);
+    transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  &.pointer {
+    .circle {
+      height: 3.8125rem;
+      background-color: rgba(223, 93, 67, 0.15);
+      width: 9.5rem;
+      padding: 0.5625rem 1.1875rem 0.5625rem 1.5625rem;
+    }
+  }
+
+  .content {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--color-text-light);
+    font-family: var(--font-suisse), sans-serif;
+    text-align: center;
+    width: 100%;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+  }
+
+  &.pointer .content {
+    opacity: 1;
+  }
+
+  .text {
+    color: #873b2c;
+    text-align: center;
+    font-family: "Suisse Int'l";
+    font-size: 1.5rem;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+    text-transform: uppercase;
+    white-space: nowrap;
+  }
+
+  &.vision,
+  &.about {
+    transform: translate(-50%, -50%) scale(1);
+  }
+}
+
+/* Target elements that will trigger cursor changes */
+.cursorTarget {
+  cursor: none !important;
+}
