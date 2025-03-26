@@ -58,13 +58,13 @@ const CustomCursor: React.FC = () => {
     };
 
     document.addEventListener("mousemove", onMouseMove);
-    document.addEventListener("mouseover", onMouseOver, true);
+    // document.addEventListener("mouseover", onMouseOver, true);
     document.addEventListener("mouseleave", onMouseLeave);
     document.addEventListener("mouseenter", onMouseEnter);
 
     return () => {
       document.removeEventListener("mousemove", onMouseMove);
-      document.removeEventListener("mouseover", onMouseOver, true);
+      // document.removeEventListener("mouseover", onMouseOver, true);
       document.removeEventListener("mouseleave", onMouseLeave);
       document.removeEventListener("mouseenter", onMouseEnter);
     };
@@ -107,7 +107,7 @@ const CustomCursor: React.FC = () => {
       }}
     >
       <div className={styles.circle}></div>
-      {cursorType === "vision" && (
+      {/* {cursorType === "vision" && (
         <div className={styles.content}>
           <div className={styles.text}>VISION +</div>
         </div>
@@ -116,7 +116,7 @@ const CustomCursor: React.FC = () => {
         <div className={styles.content}>
           <div className={styles.text}>ABOUT US +</div>
         </div>
-      )}
+      )} */}
     </div>
   );
 };

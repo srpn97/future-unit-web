@@ -88,7 +88,7 @@ const HomeContent = () => {
   return (
     <>
       <CustomCursor />
-      <GridLines />
+      {/* <GridLines /> */}
       <main className={styles.container}>
         <div className={styles.content}>
           <h1 ref={titleRef} className={styles.title}>
@@ -107,7 +107,7 @@ const HomeContent = () => {
           <p>SF {currentTime.sanFrancisco || "--:--"}</p>
         </footer>
       </main>
-      <Work />
+      {/* <Work /> */}
     </>
   );
 };

@@ -92,3 +92,12 @@
     margin-top: 1rem;
   }
 }
+
+.title {
+  user-select: none;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  cursor: default;
+  pointer-events: none;
+}
