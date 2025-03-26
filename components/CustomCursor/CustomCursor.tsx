@@ -1,13 +1,13 @@
 import React, { useState, useEffect, useRef } from "react";
 import styles from "./CustomCursor.module.scss";
 
-type CursorType = "default" | "vision" | "about" | "ABOUT US";
+// type CursorType = "default" | "vision" | "about" | "ABOUT US";
 
 const CustomCursor: React.FC = () => {
   const cursorRef = useRef<HTMLDivElement>(null);
   const [position, setPosition] = useState({ x: 0, y: 0 });
-  const [isPointer, setIsPointer] = useState(false);
-  const [cursorType, setCursorType] = useState<CursorType>("default");
+  // const [isPointer, setIsPointer] = useState(false);
+  // const [cursorType, setCursorType] = useState<CursorType>("default");
   const [isVisible, setIsVisible] = useState(false);
 
   useEffect(() => {
@@ -18,34 +18,34 @@ const CustomCursor: React.FC = () => {
     };
 
     // Check if cursor is over clickable elements
-    const onMouseOver = (e: MouseEvent) => {
-      const target = e.target as HTMLElement;
+    // const onMouseOver = (e: MouseEvent) => {
+    //   const target = e.target as HTMLElement;
 
-      // Check for the title spans
-      if (
-        target.tagName === "SPAN" &&
-        target.parentElement?.className.includes("title")
-      ) {
-        const text = target.textContent?.trim().toUpperCase();
-        if (text === "FUTURE") {
-          setCursorType("vision");
-        } else if (text === "UNIT") {
-          setCursorType("ABOUT US");
-        }
-        setIsPointer(true);
-      }
-      // Check for work heading
-      else if (
-        target.tagName === "H2" &&
-        target.textContent?.includes("WORK")
-      ) {
-        setCursorType("about");
-        setIsPointer(true);
-      } else {
-        setCursorType("default");
-        setIsPointer(false);
-      }
-    };
+    //   // Check for the title spans
+    //   if (
+    //     target.tagName === "SPAN" &&
+    //     target.parentElement?.className.includes("title")
+    //   ) {
+    //     const text = target.textContent?.trim().toUpperCase();
+    //     if (text === "FUTURE") {
+    //       setCursorType("vision");
+    //     } else if (text === "UNIT") {
+    //       setCursorType("ABOUT US");
+    //     }
+    //     setIsPointer(true);
+    //   }
+    //   // Check for work heading
+    //   else if (
+    //     target.tagName === "H2" &&
+    //     target.textContent?.includes("WORK")
+    //   ) {
+    //     setCursorType("about");
+    //     setIsPointer(true);
+    //   } else {
+    //     setCursorType("default");
+    //     setIsPointer(false);
+    //   }
+    // };
 
     // Handle mouse leaving the window
     const onMouseLeave = () => {
@@ -97,8 +97,6 @@ const CustomCursor: React.FC = () => {
       ref={cursorRef}
       className={`
         ${styles.cursor} 
-        ${isPointer ? styles.pointer : ""} 
-        ${styles[cursorType]} 
         ${isVisible ? styles.visible : ""}
       `}
       style={{
@@ -106,6 +104,8 @@ const CustomCursor: React.FC = () => {
         top: `${position.y}px`,
       }}
     >
+      {/* ${isPointer ? styles.pointer : ""} 
+        ${styles[cursorType]}  */}
       <div className={styles.circle}></div>
       {/* {cursorType === "vision" && (
         <div className={styles.content}>
