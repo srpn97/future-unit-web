@@ -1,119 +1,134 @@
 "use client";
 
-import styles from "./page.module.scss";
 import React, { useState, useEffect } from "react";
-import { WidthProvider, useWidth, CustomCursor } from "../components/Index";
+import Image from "next/image";
+import styles from "./page.module.scss";
 
-// Work,
-// GridLines,
-
-// Inner component that uses the width context
-const HomeContent = () => {
-  const { titleRef } = useWidth();
+export default function Home() {
   const [currentTime, setCurrentTime] = useState({
-    india: "",
-    sanFrancisco: "",
+    ist: "",
+    pst: "",
   });
+  const [windowWidth, setWindowWidth] = useState(
+    typeof window !== "undefined" ? window.innerWidth : 1600
+  );
 
-  // Function to initialize opacity for elements
+  // Update time every second
   useEffect(() => {
-    const fadeInElements = () => {
-      // Set a timeout to ensure everything has rendered
-      setTimeout(() => {
-        if (titleRef.current) titleRef.current.style.opacity = "1";
-
-        const descriptionEl = document.querySelector(`.${styles.description}`);
-        if (descriptionEl) (descriptionEl as HTMLElement).style.opacity = "1";
-
-        document.querySelectorAll(`.${styles.footer} p`).forEach((el) => {
-          (el as HTMLElement).style.opacity = "1";
-        });
-      }, 500);
-    };
-
-    // Initially hide elements
-    if (titleRef.current) titleRef.current.style.opacity = "0";
-
-    const descriptionEl = document.querySelector(`.${styles.description}`);
-    if (descriptionEl) (descriptionEl as HTMLElement).style.opacity = "0";
-
-    document.querySelectorAll(`.${styles.footer} p`).forEach((el) => {
-      (el as HTMLElement).style.opacity = "0";
-    });
-
-    // Wait for fonts to load before fading in
-    document.fonts.ready.then(fadeInElements);
-
-    // Clean up
-    return () => {
-      // No cleanup needed for opacity changes
-    };
-  }, [titleRef]);
-
-  useEffect(() => {
-    const formatTimeWithAmPm = (date: Date): string => {
-      let hours = date.getHours();
-      const minutes = date.getMinutes();
-      const ampm = hours >= 12 ? "PM" : "AM";
-      hours = hours % 12 || 12;
-      const minutesStr = minutes < 10 ? "0" + minutes : minutes;
-      return `${hours}:${minutesStr}${ampm}`;
-    };
-
-    const updateTimes = () => {
+    const updateTime = () => {
       const now = new Date();
 
-      const indiaTime = new Date(now.getTime());
-      indiaTime.setHours(now.getUTCHours() + 5);
-      indiaTime.setMinutes(now.getUTCMinutes() + 30);
+      // IST (Indian Standard Time) - UTC+5:30
+      const istTime = new Date(now.getTime());
+      istTime.setHours(now.getUTCHours() + 5);
+      istTime.setMinutes(now.getUTCMinutes() + 30);
 
-      const sfTime = new Date(
+      // PST (Pacific Standard Time) - UTC-8:00
+      const pstTime = new Date(
         now.toLocaleString("en-US", { timeZone: "America/Los_Angeles" })
       );
 
+      // Format times
+      const istFormatted = formatTime(istTime);
+      const pstFormatted = formatTime(pstTime);
+
       setCurrentTime({
-        india: formatTimeWithAmPm(indiaTime),
-        sanFrancisco: formatTimeWithAmPm(sfTime),
+        ist: istFormatted,
+        pst: pstFormatted,
       });
     };
 
-    updateTimes();
-    const intervalId = setInterval(updateTimes, 60000);
+    // Format time to match screenshot format
+    const formatTime = (date: Date): string => {
+      let hours = date.getHours();
+      const minutes = date.getMinutes();
+      const ampm = hours >= 12 ? "PM" : "AM";
+
+      hours = hours % 12 || 12; // Convert to 12-hour format
+      const minutesStr = minutes < 10 ? `0${minutes}` : minutes;
+
+      return `${hours}:${minutesStr}${ampm}`;
+    };
+
+    // Initial call
+    updateTime();
+
+    // Set up interval
+    const intervalId = setInterval(updateTime, 1000);
+
+    // Clean up
     return () => clearInterval(intervalId);
   }, []);
 
+  // Track window resize for responsive adjustments
+  useEffect(() => {
+    // Only run on client side
+    if (typeof window === "undefined") return;
+
+    const handleResize = () => {
+      setWindowWidth(window.innerWidth);
+    };
+
+    // Set up event listener
+    window.addEventListener("resize", handleResize);
+
+    // Clean up
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
+
+  // Determine logo size based on screen width
+  const getLogoSize = () => {
+    if (windowWidth <= 480) return 70;
+    if (windowWidth <= 1023) return 80;
+    return 100;
+  };
+
   return (
     <>
-      <CustomCursor />
-      {/* <GridLines /> */}
-      <main className={styles.container}>
-        <div className={styles.content}>
-          <h1 ref={titleRef} className={styles.title}>
-            <span>FUTURE</span> <span>UNIT</span>
-          </h1>
-          <p className={styles.description}>
-            Future Unit is a creative studio combining industrial design,
-            interaction design, and think tank research into one practice. We
-            help early-stage startups turn emerging technologies into
-            culture-shaping experiences. Big ideas become real and relevant
-            today.
-          </p>
-        </div>
-        <footer className={styles.footer}>
-          <p>IND {currentTime.india || "--:--"}</p>
-          <p>SF {currentTime.sanFrancisco || "--:--"}</p>
-        </footer>
-      </main>
-      {/* <Work /> */}
-    </>
-  );
-};
+      <div className={styles.container}>
+        <main className={styles.main}>
+          <div className={styles.content}>
+            <div className={styles.logoContainer}>
+              <Image
+                src="/logo.svg"
+                alt="Future Unit"
+                width={100}
+                height={100}
+                priority
+                className={styles.logo}
+              />
+            </div>
 
-// Wrapper component that provides the WidthProvider
-export default function Home() {
-  return (
-    <WidthProvider>
-      <HomeContent />
-    </WidthProvider>
+            <p className={styles.description}>
+              Future Unit is a creative studio combining industrial design,
+              interaction design, and think tank research into one practice. We
+              help early-stage startups turn emerging technologies into
+              culture-shaping experiences. Big ideas become real and relevant
+              today.
+            </p>
+
+            <p className={styles.recentWork}>
+              Recent Work - <span className={styles.workItem}>Gobi (2025)</span>
+              , <span className={styles.workItem}>Truffles OS (2024)</span>
+            </p>
+          </div>
+        </main>
+      </div>
+      <div className={styles.footerContainer}>
+        <div className={styles.footer}>
+          <button className={styles.contactButton}>
+            <span className={styles.buttonText}>
+              Contact Us{" "}
+              <img className={styles.buttonImage} src="/mail_icon.png" alt="" />
+            </span>
+          </button>
+
+          <div className={styles.times}>
+            <p className={styles.time}>IST {currentTime.ist}</p>
+            <p className={styles.time}>PST {currentTime.pst}</p>
+          </div>
+        </div>
+      </div>
+    </>
   );
 }

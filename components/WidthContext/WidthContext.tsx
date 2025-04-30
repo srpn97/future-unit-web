@@ -13,8 +13,7 @@ import React, {
 interface WidthContextType {
   titleWidth: number;
   setTitleWidth: (width: number) => void;
-  // The key fix: use MutableRefObject<T | null> instead of RefObject<T>
-  titleRef: MutableRefObject<HTMLHeadingElement | null>;
+  titleRef: MutableRefObject<HTMLDivElement | null>;
 }
 
 const WidthContext = createContext<WidthContextType | undefined>(undefined);
@@ -25,34 +24,74 @@ interface WidthProviderProps {
 
 export const WidthProvider: React.FC<WidthProviderProps> = ({ children }) => {
   const [titleWidth, setTitleWidth] = useState<number>(0);
-  // useRef returns MutableRefObject<T | null>, which is what we need
-  const titleRef = useRef<HTMLHeadingElement>(null);
+  const titleRef = useRef<HTMLDivElement>(null);
+  const [isReady, setIsReady] = useState(false);
 
   // Set up a resize observer to update width when window size changes
   useEffect(() => {
+    let timeoutId: NodeJS.Timeout;
+
     const updateWidth = () => {
       if (titleRef.current) {
-        const newWidth = titleRef.current.offsetWidth;
-        setTitleWidth(newWidth);
+        // Look for the actual img element to get its width
+        const logoImgElement = titleRef.current.querySelector("img");
 
-        // Also set as a CSS variable for global access
-        document.documentElement.style.setProperty(
-          "--title-width",
-          `${newWidth}px`
-        );
+        // Measure what we can see
+        const newWidth = logoImgElement
+          ? logoImgElement.clientWidth
+          : titleRef.current.clientWidth;
+
+        if (newWidth > 0) {
+          setTitleWidth(newWidth);
+          setIsReady(true);
+
+          // Also set as a CSS variable for global access
+          document.documentElement.style.setProperty(
+            "--title-width",
+            `${newWidth}px`
+          );
+        }
       }
     };
 
-    // Initialize on first render
-    if (titleRef.current) {
-      // Delay to ensure fonts are loaded
-      setTimeout(updateWidth, 300);
-    }
+    // Set up multiple measurements to ensure we catch when the image loads
+    const setupMeasurements = () => {
+      // Immediate check
+      updateWidth();
+
+      // Check after small delay (for image to possibly load)
+      timeoutId = setTimeout(() => {
+        updateWidth();
+
+        // Check one more time after a longer delay
+        timeoutId = setTimeout(updateWidth, 500);
+      }, 100);
+    };
+
+    setupMeasurements();
 
     // Set up resize observer for the title element
-    const resizeObserver = new ResizeObserver(updateWidth);
+    const resizeObserver = new ResizeObserver(() => {
+      // Clear any existing timers
+      clearTimeout(timeoutId);
+      // Set new measurements
+      setupMeasurements();
+    });
+
     if (titleRef.current) {
       resizeObserver.observe(titleRef.current);
+    }
+
+    // Set up event listeners for image load
+    const handleImageLoad = () => {
+      clearTimeout(timeoutId);
+      // Delay measurement slightly to ensure rendering completes
+      timeoutId = setTimeout(updateWidth, 50);
+    };
+
+    const logoImg = titleRef.current?.querySelector("img");
+    if (logoImg) {
+      logoImg.addEventListener("load", handleImageLoad);
     }
 
     // Watch for window resize as well
@@ -61,8 +100,12 @@ export const WidthProvider: React.FC<WidthProviderProps> = ({ children }) => {
 
     // Clean up
     return () => {
+      clearTimeout(timeoutId);
       if (titleRef.current) {
         resizeObserver.unobserve(titleRef.current);
+      }
+      if (logoImg) {
+        logoImg.removeEventListener("load", handleImageLoad);
       }
       window.removeEventListener("resize", updateWidth);
       window.removeEventListener("orientationchange", updateWidth);
