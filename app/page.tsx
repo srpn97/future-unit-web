@@ -9,9 +9,9 @@ export default function Home() {
     ist: "",
     pst: "",
   });
-  const [windowWidth, setWindowWidth] = useState(
-    typeof window !== "undefined" ? window.innerWidth : 1600
-  );
+  // const [windowWidth, setWindowWidth] = useState(
+  //   typeof window !== "undefined" ? window.innerWidth : 1600
+  // );
 
   // Update time every second
   useEffect(() => {
@@ -61,27 +61,20 @@ export default function Home() {
   }, []);
 
   // Track window resize for responsive adjustments
-  useEffect(() => {
-    // Only run on client side
-    if (typeof window === "undefined") return;
+  // useEffect(() => {
+  //   // Only run on client side
+  //   if (typeof window === "undefined") return;
 
-    const handleResize = () => {
-      setWindowWidth(window.innerWidth);
-    };
+  //   const handleResize = () => {
+  //     // setWindowWidth(window.innerWidth);
+  //   };
 
-    // Set up event listener
-    window.addEventListener("resize", handleResize);
+  //   // Set up event listener
+  //   window.addEventListener("resize", handleResize);
 
-    // Clean up
-    return () => window.removeEventListener("resize", handleResize);
-  }, []);
-
-  // Determine logo size based on screen width
-  const getLogoSize = () => {
-    if (windowWidth <= 480) return 70;
-    if (windowWidth <= 1023) return 80;
-    return 100;
-  };
+  //   // Clean up
+  //   return () => window.removeEventListener("resize", handleResize);
+  // }, []);
 
   return (
     <>
