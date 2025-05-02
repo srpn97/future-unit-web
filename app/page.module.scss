@@ -1,4 +1,14 @@
-// Media query breakpoints
+.main {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.content {
+  width: 100%;
+} // Media query breakpoints
 $breakpoint-xs: 480px; // Extra small screens (small mobile)
 $breakpoint-sm: 767px; // Small screens (mobile)
 $breakpoint-md: 1023px; // Medium screens (tablet)
@@ -13,34 +23,58 @@ $container-padding-sm: 3rem; // Mobile
 $container-padding-xs: 1.5rem; // Small mobile
 
 .container {
-  padding: 10rem $container-padding-xl 0 $container-padding-xl;
+  padding: 0 $container-padding-xl;
   min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  box-sizing: border-box;
+  padding-bottom: 6rem; /* Add some bottom padding to account for the footer */
 
   // Extra large screens - maintain original design
 
   // Large screens
   @media (max-width: $breakpoint-lg) {
-    padding: 8rem $container-padding-lg 0 $container-padding-lg;
+    padding: 0 $container-padding-lg;
+    padding-bottom: 5rem;
   }
 
   // Medium screens (tablets)
   @media (max-width: $breakpoint-md) {
-    padding: 6rem $container-padding-md 0 $container-padding-md;
+    padding: 0 $container-padding-md;
+    padding-bottom: 4rem;
   }
 
   // Small screens (mobile)
   @media (max-width: $breakpoint-sm) {
-    padding: 4rem $container-padding-sm 0 $container-padding-sm;
+    padding: 0 $container-padding-sm;
+    padding-bottom: 4rem;
     overflow-y: auto;
+
+    // Specific adjustment for landscape orientation on mobile
+    @media (orientation: landscape) {
+      padding: 0 $container-padding-sm 3rem;
+      min-height: auto; // Allow container to size to content
+      justify-content: flex-start; // Align to top instead of center
+      padding-top: 1rem; // Add minimal top padding
+    }
   }
 
   // Extra small screens (small mobile)
   @media (max-width: $breakpoint-xs) {
-    padding: 3rem $container-padding-xs 0 $container-padding-xs;
+    padding: 0 $container-padding-xs;
+    padding-bottom: 3rem;
   }
 
   .logo {
     width: 100%;
+
+    /* Landscape orientation for mobile phones */
+    @media (max-width: $breakpoint-sm) and (orientation: landscape) {
+      width: 40%; /* Significantly reduce logo size for landscape on mobile */
+      margin: 0 auto; /* Center the smaller logo */
+      max-height: 30vh; /* Limit height to prevent cropping */
+    }
   }
 
   .description {
