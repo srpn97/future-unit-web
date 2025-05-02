@@ -99,6 +99,20 @@ $container-padding-xs: 1.5rem; // Small mobile
       font-weight: 400;
       line-height: normal;
     }
+
+    .workItemLink {
+      text-decoration: none;
+      display: inline-block;
+      transition: transform 0.2s ease, text-decoration 0.2s ease;
+
+      &:hover {
+        transform: scale(1.05);
+
+        .workItem {
+          text-decoration: underline;
+        }
+      }
+    }
   }
 }
 
@@ -137,6 +151,8 @@ $container-padding-xs: 1.5rem; // Small mobile
     padding: 0.82031rem 1.09375rem;
     cursor: pointer;
     transition: background 0.2s;
+    text-decoration: none;
+    display: inline-block;
 
     &:hover {
       background: rgba(255, 255, 255, 0.25);

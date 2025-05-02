@@ -3,15 +3,13 @@
 import React, { useState, useEffect } from "react";
 import Image from "next/image";
 import styles from "./page.module.scss";
+import Link from "next/link";
 
 export default function Home() {
   const [currentTime, setCurrentTime] = useState({
     ist: "",
     pst: "",
   });
-  // const [windowWidth, setWindowWidth] = useState(
-  //   typeof window !== "undefined" ? window.innerWidth : 1600
-  // );
 
   // Update time every second
   useEffect(() => {
@@ -60,22 +58,6 @@ export default function Home() {
     return () => clearInterval(intervalId);
   }, []);
 
-  // Track window resize for responsive adjustments
-  // useEffect(() => {
-  //   // Only run on client side
-  //   if (typeof window === "undefined") return;
-
-  //   const handleResize = () => {
-  //     // setWindowWidth(window.innerWidth);
-  //   };
-
-  //   // Set up event listener
-  //   window.addEventListener("resize", handleResize);
-
-  //   // Clean up
-  //   return () => window.removeEventListener("resize", handleResize);
-  // }, []);
-
   return (
     <>
       <div className={styles.container}>
@@ -101,20 +83,39 @@ export default function Home() {
             </p>
 
             <p className={styles.recentWork}>
-              Recent Work - <span className={styles.workItem}>Gobi (2025)</span>
-              , <span className={styles.workItem}>Truffles OS (2024)</span>
+              Recent Work -{" "}
+              <Link
+                href="https://itsalltruffles.com/"
+                className={styles.workItemLink}
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                <span className={styles.workItem}>Truffles OS (2024)</span>
+              </Link>
+              ,{" "}
+              <Link
+                href="https://joingobi.com/"
+                className={styles.workItemLink}
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                <span className={styles.workItem}>Gobi (2025)</span>
+              </Link>
             </p>
           </div>
         </main>
       </div>
       <div className={styles.footerContainer}>
         <div className={styles.footer}>
-          <button className={styles.contactButton}>
+          <a
+            href="mailto:info@futureunit.design"
+            className={styles.contactButton}
+          >
             <span className={styles.buttonText}>
               Contact Us{" "}
               <img className={styles.buttonImage} src="/mail_icon.png" alt="" />
             </span>
-          </button>
+          </a>
 
           <div className={styles.times}>
             <p className={styles.time}>IST {currentTime.ist}</p>
